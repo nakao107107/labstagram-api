@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/', 'PostController@index');
 Route::get('/new', 'PostController@new');
+Route::get('/profile', 'PostController@profile');
 Route::post('/create', 'PostController@create');
 
 //ログイン関連

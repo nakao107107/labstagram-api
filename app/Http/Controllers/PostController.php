@@ -9,10 +9,7 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $githubId = $request->session()->get('username');
-        $currentUser = User::where('github_id', $githubId)->firstOrFail()->toArray();
-        $currentUserId = $currentUser["id"];
-        $posts = Post::where('user_id', $currentUserId)->get();
+        $posts = Post::all();
         return view('index', ['posts'=>$posts]);
     }
 
@@ -33,5 +30,14 @@ class PostController extends Controller
         $img_url = $request->input('img_url');
         Post::insert(["caption" => $caption, "img_url" => $img_url, 'user_id'=>$currentUserId]);
         return redirect('/');
+    }
+
+    public function profile(Request $request)
+    {
+        $githubId = $request->session()->get('username');
+        $currentUser = User::where('github_id', $githubId)->firstOrFail();
+        $currentUserId = $currentUser["id"];
+        $posts = Post::where('user_id', $currentUserId)->get();
+        return view('profile', ['posts'=>$posts, 'user' => $currentUser]);
     }
 }
