@@ -15,4 +15,23 @@ class PostController extends Controller
         $posts = Post::where('user_id', $currentUserId)->get();
         return view('index', ['posts'=>$posts]);
     }
+
+    public function new(Request $request)
+    {
+        return view('new');
+    }
+
+    // 投稿された内容を表示するページ
+    public function create(Request $request) {
+
+        $githubId = $request->session()->get('username');
+        $currentUser = User::where('github_id', $githubId)->firstOrFail()->toArray();
+        $currentUserId = $currentUser["id"];
+
+        // 投稿内容の受け取って変数に入れる
+        $caption = $request->input('caption');
+        $img_url = $request->input('img_url');
+        Post::insert(["caption" => $caption, "img_url" => $img_url, 'user_id'=>$currentUserId]);
+        return redirect('/');
+    }
 }
