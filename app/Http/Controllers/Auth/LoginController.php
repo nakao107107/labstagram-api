@@ -68,7 +68,7 @@ class LoginController extends Controller
         if (empty($app_user)) {//該当userがいなければ新規作成
             DB::insert('insert into users (name, github_id, created_at, updated_at) values (?, ?, ?, ?)', ["aa", $github_user->user['login'], $now, $now]);
         }
-        $request->session()->put('github_token', $github_user->token);
+        $request->session()->put('username', $github_user->user['login']);
 
         return redirect('/');
     }
