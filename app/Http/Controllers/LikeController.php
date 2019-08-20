@@ -15,6 +15,13 @@ class LikeController extends Controller
         $this->like_service = $like_service;
     }
 
+    public function index(){
+
+        $res = $this->like_service->searchLikes();
+        return response($res);
+
+    }
+
     public function store(StoreRequest $request)
     {
         $res = $this->like_service->changeLikeStatus(

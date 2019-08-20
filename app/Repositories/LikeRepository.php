@@ -39,4 +39,13 @@ class LikeRepository
         $model = $model->firstOrFail();
         return $model->delete();
     }
+
+    public function searchLikes()
+    {
+        $model = $this->like::with(['user']);
+        $data = $model
+            ->get()
+            ->toArray();
+        return $data;
+    }
 }

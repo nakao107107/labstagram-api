@@ -14,6 +14,10 @@ class LikeService
         $this->like_repository = $like_repository;
     }
 
+    public function searchLikes(array $params = []){
+        return $this->like_repository->searchLikes($params);
+    }
+
     public function changeLikeStatus(array $params)
     {
         $like = $this->like_repository->searchLike($params);
