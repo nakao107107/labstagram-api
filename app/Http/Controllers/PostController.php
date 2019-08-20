@@ -1,17 +1,26 @@
 <?php
 namespace App\Http\Controllers;
-use App\Post;
-use App\User;
+use App\Models\Post;
+use App\Models\User;
+use App\Services\PostService;
 
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(Request $request)
-    {
 
-        $posts = Post::all();
-        return view('index', ['posts'=>$posts]);
+    private $post_service;
+    
+    public function __construct(PostService $post_service)
+    {
+        $this->post_service = $post_service;
+    }
+
+    public function index(){
+
+        $res = $this->post_service->searchPosts();
+        return response($res);
+
     }
 
     public function new(Request $request)
