@@ -15,7 +15,7 @@ class PostRepository
     }
     public function searchPosts()
     {
-        $model = $this->post;
+        $model = $this->post::with(['user']);
         $data = $model
             ->get()
             ->toArray();
