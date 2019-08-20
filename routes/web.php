@@ -10,25 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/posts', 'PostController@index');
 
 //ページ表示
-Route::get('/', 'PostController@index');
-Route::get('/new', 'PostController@new');
-Route::get('/profile', 'PostController@profile');
+// Route::get('/new', 'PostController@new');
+// Route::get('/profile', 'PostController@profile');
 
-//投稿系統
-Route::post('/create', 'PostController@create');
+// //投稿系統
+// Route::post('/create', 'PostController@create');
 
-//ログイン関連
-Route::get('/auth/login', 'Auth\LoginController@renderLoginPage');
-Route::get('github', 'Github\GithubController@top');
-Route::post('github/issue', 'Github\GithubController@createIssue');
-Route::get('login/github', 'Auth\LoginController@redirectToProvider');
-Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+// //ログイン関連
+// Route::get('/auth/login', 'Auth\LoginController@renderLoginPage');
+// Route::get('github', 'Github\GithubController@top');
+// Route::post('github/issue', 'Github\GithubController@createIssue');
+// Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+// Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 
 
 
