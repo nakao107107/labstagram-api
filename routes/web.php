@@ -15,9 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//ページ表示
 Route::get('/', 'PostController@index');
 Route::get('/new', 'PostController@new');
 Route::get('/profile', 'PostController@profile');
+
+//投稿系統
 Route::post('/create', 'PostController@create');
 
 //ログイン関連

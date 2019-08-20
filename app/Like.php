@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Post extends Authenticatable
+class Like extends Authenticatable
 {
     use Notifiable;
 
@@ -19,9 +19,4 @@ class Post extends Authenticatable
         'post_id',
         'user_id'
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

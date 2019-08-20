@@ -25,4 +25,9 @@ class Post extends Authenticatable
     {
         return $this->belongsTo(User::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

@@ -14,7 +14,10 @@
             <p>ユーザー名：{{$d->user->name}}</p>
             <img src="{{$d->img_url}}" alt="画像">
             <p>{{$d->caption}}</p>
-            <button>like</button>
+            <p>{{$d->likes}}</p>
+            <form action="/like" method="POST">
+                <button>like</button>
+            </form>
             <button>いいねしたユーザー</button>
         </div>
         @endforeach
