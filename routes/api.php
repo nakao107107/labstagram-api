@@ -14,3 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/posts', 'PostController@index');
+
+Route::get('/likes', 'LikeController@index');
+Route::post('/likes', 'LikeController@store');

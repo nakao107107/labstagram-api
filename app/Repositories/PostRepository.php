@@ -13,6 +13,7 @@ class PostRepository
     {
         $this->post = $post;
     }
+    
     public function searchPosts()
     {
         $model = $this->post::with(['user']);
