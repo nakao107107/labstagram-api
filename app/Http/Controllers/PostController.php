@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\PostService;
+use App\Requests\Post\StoreRequest;
 
 use Illuminate\Http\Request;
 
@@ -28,18 +29,11 @@ class PostController extends Controller
         return view('new');
     }
 
-    // 投稿された内容を表示するページ
-    public function create(Request $request) {
-
-        $githubId = $request->session()->get('username');
-        $currentUser = User::where('github_id', $githubId)->firstOrFail()->toArray();
-        $currentUserId = $currentUser["id"];
-
-        // 投稿内容の受け取って変数に入れる
-        $caption = $request->input('caption');
-        $img_url = $request->input('img_url');
-        Post::insert(["caption" => $caption, "img_url" => $img_url, 'user_id'=>$currentUserId]);
-        return redirect('/');
+    public function store(StoreRequest $request) {
+        $res = $this->post_service->createPosts(
+            $request->validated()
+        );
+        return response($res);
     }
 
     public function profile(Request $request)

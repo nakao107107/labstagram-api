@@ -14,6 +14,11 @@ class PostService
         $this->post_repository = $post_repository;
     }
 
+    public function createPosts(array $params)
+    {
+        return $this->post_repository->createPosts($params);
+    }
+
     public function searchPosts(array $params=[])
     {
         return $this->post_repository->searchPosts($params);

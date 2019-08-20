@@ -13,6 +13,14 @@ class PostRepository
     {
         $this->post = $post;
     }
+
+    public function createPosts(array $params)
+    {
+
+        $model = $this->post::create($params);
+        return $model->get();
+        
+    }
     
     public function searchPosts()
     {
