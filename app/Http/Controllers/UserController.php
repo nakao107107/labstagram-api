@@ -13,20 +13,11 @@ class UserController extends Controller
     {
         $this->user_service = $user_service;
     }
-
-    public function updateUser(Request $request)
-    {
-        $token = $request->session()->get('github_token', null);
-        $user = Socialite::driver('github')->userFromToken($token);
-
-        DB::update('update public.user set name = ? where github_id = ?', [$request->input('name'), $user->user['login']]);
-        return redirect('/github');
-    }
     
     public function show(ShowRequest $request)
     {
         $res = $this->user_service->getUserById(
-            $request->route('user_id')
+            $request->input('user_id')
         );
         return response($res);
     }

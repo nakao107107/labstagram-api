@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 Route::middleware('check_auth')->group(function () {
 
-    Route::get('/users/{user_id}', 'UserController@show');
+    Route::get('/user', 'UserController@show');
 
     Route::get('/posts', 'PostController@index');
     Route::post('/posts', 'PostController@store');
