@@ -7,21 +7,14 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Services\LoginService;
+
 use Socialite;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+
 
     use AuthenticatesUsers;
 
@@ -32,14 +25,23 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+
+    private $login_service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(LoginService $login_service)
     {
         $this->middleware('guest')->except('logout');
+        $this->login_service = $login_service;
+    }
+
+    public function getRedirectUrl()
+    {
+        return Socialite::driver('github')->scopes(['read:user', 'public_repo'])->redirect()->getTargetUrl(); 
     }
 
 
@@ -53,29 +55,13 @@ class LoginController extends Controller
         return Socialite::driver('github')->scopes(['read:user', 'public_repo'])->redirect(); 
     }
 
-    /**
-     * GitHubからユーザー情報を取得
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback(Request $request)// 追加！
+    public function handleProviderCallback(Request $request)
     {
-        $github_user = Socialite::driver('github')->user();
-
-        $now = date("Y/m/d H:i:s");
+        $github_user = Socialite::driver('github')->stateless()->user();  
         //github_idを元にuser検索
-        $app_user = DB::select('select * from users where github_id = ?', [$github_user->user['login']]);
-        if (empty($app_user)) {//該当userがいなければ新規作成
-            DB::insert('insert into users (name, github_id, created_at, updated_at) values (?, ?, ?, ?)', ["aa", $github_user->user['login'], $now, $now]);
-        }
-        $request->session()->put('username', $github_user->user['login']);
+        //いなければ新規作成して返す
+        $app_user = $this->login_service->createOrUpdateUser($github_user);
+        return $app_user->createToken();
 
-        return redirect('/');
-    }
-
-    //ログインページを表示
-    public function renderLoginPage()// 追加！
-    {
-        return view('login');
     }
 }

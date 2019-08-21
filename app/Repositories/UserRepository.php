@@ -21,4 +21,29 @@ class UserRepository
             ->toArray();
         return $data;
     }
+
+    public function getUserByToken($token)
+    {
+        $model = $this->user;
+        $data = $model
+            ->where('token', $token)
+            ->firstOrFail()
+            ->toArray();
+        return $data;
+    }
+
+    public function getUserByGithubId($github_id)
+    {
+        $model = $this->user::with(['posts']);
+        $data = $model
+            ->where('github_id', $github_id)
+            ->first();
+        return $data;
+    }
+
+    public function createUser(array $params)
+    {
+        $model = $this->user::create($params);
+        return $model; 
+    }
 }

@@ -16,7 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'github_id',
+        'token'
     ];
 
     public function posts()
@@ -27,6 +29,13 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(Like::class)->count();
+    }
+
+    public function createToken(){
+
+        $token = bin2hex(openssl_random_pseudo_bytes(16));
+        $this->where('id', $this->id)->update(['token' => $token]);
+        return $token;
     }
 
 }

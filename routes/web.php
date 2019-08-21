@@ -11,19 +11,12 @@
 |
 */
 
-//ページ表示
-// Route::get('/new', 'PostController@new');
-// Route::get('/profile', 'PostController@profile');
-
-// //投稿系統
-// Route::post('/create', 'PostController@create');
-
-// //ログイン関連
-// Route::get('/auth/login', 'Auth\LoginController@renderLoginPage');
 // Route::get('github', 'Github\GithubController@top');
 // Route::post('github/issue', 'Github\GithubController@createIssue');
 // Route::get('login/github', 'Auth\LoginController@redirectToProvider');
-// Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('/oauth/login/redirect', 'Auth\LoginController@getRedirectUrl');
+Route::get('/oauth/login/callback', 'Auth\LoginController@handleProviderCallback');
 
 
 

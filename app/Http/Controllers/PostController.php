@@ -24,24 +24,11 @@ class PostController extends Controller
 
     }
 
-    public function new(Request $request)
-    {
-        return view('new');
-    }
-
     public function store(StoreRequest $request) {
         $res = $this->post_service->createPosts(
             $request->validated()
         );
         return response($res);
     }
-
-    public function profile(Request $request)
-    {
-        $githubId = $request->session()->get('username');
-        $currentUser = User::where('github_id', $githubId)->firstOrFail();
-        $currentUserId = $currentUser["id"];
-        $posts = Post::where('user_id', $currentUserId)->get();
-        return view('profile', ['posts'=>$posts, 'user' => $currentUser]);
-    }
+    
 }
