@@ -16,6 +16,7 @@ Route::middleware('check_auth')->group(function () {
 
     Route::post('/posts', 'PostController@store');
     Route::post('/likes', 'LikeController@store');
+    Route::delete('/posts/{post_id}', 'PostController@delete');
 
 });
 

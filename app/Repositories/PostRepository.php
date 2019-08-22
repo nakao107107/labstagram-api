@@ -30,4 +30,16 @@ class PostRepository
             ->toArray();
         return $data;
     }
+
+    public function deletePost(int $user_id, int $post_id){
+        
+        $model = $this->post::with(['likes']);
+
+        $model = $model->where('id', $post_id)
+                       ->where('user_id', $user_id)
+                       ->firstOrFail();
+
+        $model->delete();
+
+    }
 }

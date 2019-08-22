@@ -23,4 +23,10 @@ class PostService
     {
         return $this->post_repository->searchPosts($params);
     }
+
+    public function deletePost(int $user_id, int $post_id)
+    {
+        $res = $this->post_repository->deletePost($user_id, $post_id);
+        return $res;
+    }
 }

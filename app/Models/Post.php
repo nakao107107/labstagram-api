@@ -26,4 +26,14 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
+
+    protected static function boot() 
+    {
+        parent::boot();
+        static::deleting(function($model) {
+            foreach ($model->likes()->get() as $child) {
+                $child->delete();
+            }
+        });
+    }
 }
