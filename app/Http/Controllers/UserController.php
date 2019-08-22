@@ -17,7 +17,7 @@ class UserController extends Controller
     public function show(ShowRequest $request)
     {
         $res = $this->user_service->getUserById(
-            $request->input('user_id')
+            $request->route('user_id')
         );
         return response($res);
     }
