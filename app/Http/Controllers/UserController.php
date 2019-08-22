@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Requests\User\ShowRequest;
+use App\Requests\User\ShowCurrentRequest;
 
 use App\Services\UserService;
 
@@ -18,6 +19,14 @@ class UserController extends Controller
     {
         $res = $this->user_service->getUserById(
             $request->route('user_id')
+        );
+        return response($res);
+    }
+
+    public function showCurrentUser(ShowCurrentRequest $request)
+    {
+        $res = $this->user_service->getUserById(
+            $request->input('user_id')
         );
         return response($res);
     }
