@@ -8,8 +8,7 @@ class StoreRequest extends FormRequest
         return [
             'user_id' => ['required', 'integer'],
             'caption' => ['required', 'string'],
-            'img_url' => ['required', 'string'],
-            'file'    => ['required', 'file']
+            'img_url' => ['required', 'string']
         ];
     }
 }

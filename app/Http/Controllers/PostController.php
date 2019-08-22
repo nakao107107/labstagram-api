@@ -28,16 +28,6 @@ class PostController extends Controller
 
     public function store(StoreRequest $request) {
 
-        // formから送信されたimgファイルを読み込む
-        $file = $request->file('file');
-
-        $file_contents = file_get_contents($file->getRealPath());
-
-        // s3のuploadsファイルに追加
-        $path = Storage::disk('minio')->put("aaa.jpg", $file_contents, 'public');
-        // 画像のURLを参照
-        // $url = Storage::disk('s3')->url($filename);
-        // var_dump($url);
         $res = $this->post_service->createPosts(
             $request->validated()
         );
