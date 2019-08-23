@@ -23,7 +23,11 @@ class PostController extends Controller
     public function index(){
 
         $res = $this->post_service->searchPosts();
-        return response($res);
+
+        $total = $res['meta']['total'];
+        unset($res['meta']);
+        
+        return response($res)->header('X-Total-Count', $total);
 
     }
 

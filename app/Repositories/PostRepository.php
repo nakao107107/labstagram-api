@@ -25,9 +25,16 @@ class PostRepository
     public function searchPosts()
     {
         $model = $this->post::with(['user']);
+
+        $total = $model->count();
+
         $data = $model
             ->get()
             ->toArray();
+        
+        //meta情報として, 合計の投稿数追加(pagination用)
+        $data['meta'] = ['total' => $total];
+
         return $data;
     }
 
