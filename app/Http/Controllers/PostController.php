@@ -1,14 +1,13 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\Post;
-use App\Models\User;
-use App\Services\PostService;
+
+use Illuminate\Http\Request;
 use App\Requests\Post\StoreRequest;
 use App\Requests\Post\DeleteRequest;
 
-use Illuminate\Support\Facades\Storage;
+use App\Services\PostService;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -20,18 +19,22 @@ class PostController extends Controller
         $this->post_service = $post_service;
     }
 
-    public function index(){
+    public function index(Request $request)
+    {
 
-        $res = $this->post_service->searchPosts();
+        $res = $this->post_service->searchPosts(
+            $request->query()
+        );
 
         $total = $res['meta']['total'];
         unset($res['meta']);
-        
+
         return response($res)->header('X-Total-Count', $total);
 
     }
 
-    public function store(StoreRequest $request) {
+    public function store(StoreRequest $request) 
+    {
 
         $res = $this->post_service->createPosts(
             $request->validated()

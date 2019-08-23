@@ -1,16 +1,13 @@
 <?php
 namespace App\Repositories;
+
 use App\Models\Post;
-use App\Entities\PostEntity;
-use App\Utilities\EntityMapper;
 
 class PostRepository
 {
     public function __construct(
         Post $post
-    )
-
-    {
+    ){
         $this->post = $post;
     }
 
@@ -22,13 +19,14 @@ class PostRepository
         
     }
     
-    public function searchPosts()
+    public function searchPosts(array $params = [])
     {
         $model = $this->post::with(['user']);
 
         $total = $model->count();
 
         $data = $model
+            ->forPage($params['page'] ?? 1, $params['limit'] ?? 50)
             ->get()
             ->toArray();
         
@@ -38,7 +36,8 @@ class PostRepository
         return $data;
     }
 
-    public function deletePost(int $user_id, int $post_id){
+    public function deletePost(int $user_id, int $post_id)
+    {
         
         $model = $this->post::with(['likes']);
 
