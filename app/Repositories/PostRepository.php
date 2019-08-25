@@ -13,8 +13,13 @@ class PostRepository
 
     public function createPosts(array $params)
     {
-
+        
+        //親を作成
         $model = $this->post::create($params);
+
+        //tags作成
+        $model->tags()->createMany($params['tags']);
+        
         return $model->get();
         
     }

@@ -40,5 +40,10 @@ class Post extends Model
                 $child->delete();
             }
         });
+        static::deleting(function($model) {
+            foreach ($model->tags()->get() as $child) {
+                $child->delete();
+            }
+        });
     }
 }
