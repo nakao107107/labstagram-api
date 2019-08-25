@@ -21,7 +21,7 @@ class PostRepository
     
     public function searchPosts(array $params = [])
     {
-        $model = $this->post::with(['user']);
+        $model = $this->post::with(['user', 'tags']);
 
         $total = $model->count();
 

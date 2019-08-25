@@ -27,6 +27,11 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function tags()
+    {
+        return $this->hasMany(Tag::class);
+    }
+
     protected static function boot() 
     {
         parent::boot();
