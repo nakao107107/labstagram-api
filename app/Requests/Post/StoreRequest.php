@@ -9,7 +9,7 @@ class StoreRequest extends FormRequest
             'user_id' => ['required', 'integer'],
             'caption' => ['required', 'string'],
             'img_url' => ['required', 'string'],
-            'tags'    => ['required', 'array'],
+            'tags'    => ['nullable', 'array'],
 
             'tags.*.name' => ['required', 'string']
         ];

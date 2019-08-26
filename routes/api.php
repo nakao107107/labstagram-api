@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 Route::middleware('check_auth')->group(function () {
 
     Route::post('/posts', 'PostController@store');
+    Route::post('/tasks', 'TaskController@store');
     Route::post('/likes', 'LikeController@store');
     Route::delete('/posts/{post_id}', 'PostController@delete');
     Route::get('/user', 'UserController@showCurrentUser');
@@ -24,12 +25,3 @@ Route::middleware('check_auth')->group(function () {
 Route::get('/users/{user_id}', 'UserController@show');
 Route::get('/posts', 'PostController@index');
 Route::get('/likes', 'LikeController@index');
-
-
-// Route::get('/users/{user_id}', 'UserController@show');
-
-// Route::get('/posts', 'PostController@index');
-// Route::post('/posts', 'PostController@store');
-
-// Route::get('/likes', 'LikeController@index');
-// Route::post('/likes', 'LikeController@store');

@@ -14,7 +14,7 @@ class UserRepository
 
     public function getUserById($user_id)
     {
-        $model = $this->user::with(['posts']);
+        $model = $this->user::with(['posts', 'tasks']);
         $data = $model
             ->where('id', $user_id)
             ->firstOrFail()
@@ -34,7 +34,7 @@ class UserRepository
 
     public function getUserByGithubId($github_id)
     {
-        $model = $this->user::with(['posts']);
+        $model = $this->user::with(['posts', 'tasks']);
         $data = $model
             ->where('github_id', $github_id)
             ->first();
